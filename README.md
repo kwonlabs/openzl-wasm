@@ -27,11 +27,11 @@ bun add @kwonlabs/openzl-wasm
 ### Basic Usage
 
 ```typescript
-import { OpenZL } from '@kwonlabs/openzl-wasm';
+import { OpenZL } from "@kwonlabs/openzl-wasm";
 
 // Check if ready (non-blocking)
 if (OpenZL.isReady()) {
-    console.log("OpenZL is ready!");
+  console.log("OpenZL is ready!");
 }
 
 // Or wait for it to be ready
@@ -44,15 +44,19 @@ Sync calls require the module to be initialized. Use `await OpenZL.load()` befor
 
 ```typescript
 // Data to compress (define once for all examples)
-const data = new TextEncoder().encode(JSON.stringify({ 
-  id: 1, 
-  name: "OpenZL", 
-  tags: ["compression", "wasm"] 
-}));
+const data = new TextEncoder().encode(
+  JSON.stringify({
+    id: 1,
+    name: "OpenZL",
+    tags: ["compression", "wasm"],
+  }),
+);
 
 // Compress
 const compressed = OpenZL.compress(data);
-console.log(`Original: ${data.length} bytes, Compressed: ${compressed.length} bytes`);
+console.log(
+  `Original: ${data.length} bytes, Compressed: ${compressed.length} bytes`,
+);
 
 // Decompress
 const decompressed = OpenZL.decompress(compressed);
@@ -70,7 +74,6 @@ const compressed = await OpenZL.compressAsync(data);
 // Decompress Asynchronously
 const decompressed = await OpenZL.decompressAsync(compressed);
 ```
-
 
 ## License
 

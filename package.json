@@ -1,6 +1,7 @@
 {
   "name": "@kwonlabs/openzl-wasm",
   "version": "0.2.0",
+  "type": "module",
   "description": "WebAssembly port of Meta's OpenZL (Structured Data Compression Framework)",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -17,7 +18,7 @@
     "test:coverage": "vitest run --coverage",
     "test:watch": "vitest",
     "bench": "bun run benchmarks/run.ts",
-    "lint": "prettier --check .",
+    "lint": "eslint . && prettier --check .",
     "format": "prettier --write ."
   },
   "keywords": [
@@ -38,10 +39,17 @@
     "url": "https://github.com/kwonlabs/openzl-wasm/issues"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@types/bun": "latest",
+    "@typescript-eslint/eslint-plugin": "^8.56.1",
+    "@typescript-eslint/parser": "^8.56.1",
     "@vitest/coverage-v8": "^4.0.18",
+    "eslint": "^10.0.2",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.5",
     "prettier": "latest",
     "typescript": "latest",
+    "typescript-eslint": "^8.56.1",
     "vitest": "latest"
   }
 }

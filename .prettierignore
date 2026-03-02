@@ -1,0 +1,4 @@
+dist/
+build-wasm/
+node_modules/
+vendor/
