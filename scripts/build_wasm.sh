@@ -21,7 +21,7 @@ docker run --rm \
     -v $(pwd):/src \
     -u $(id -u):$(id -g) \
     $EMSCRIPTEN_DOCKER_IMAGE \
-    sh -c "emcmake cmake -B $BUILD_DIR -DCMAKE_BUILD_TYPE=Release && cmake --build $BUILD_DIR"
+    sh -c "emcmake cmake -B $BUILD_DIR -DCMAKE_BUILD_TYPE=Release -DOPENZL_ALLOW_INTROSPECTION=OFF -DOPENZL_BUILD_CLI=OFF -DOPENZL_BUILD_EXAMPLES=OFF -DOPENZL_BUILD_TESTS=OFF -DOPENZL_BUILD_BENCHMARKS=OFF -DOPENZL_BUILD_TOOLS=OFF && cmake --build $BUILD_DIR"
 
 echo "WASM Build complete. Checking output..."
 cp $BUILD_DIR/openzl-wasm.js $DIST_DIR/

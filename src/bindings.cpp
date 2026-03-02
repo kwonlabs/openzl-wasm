@@ -57,7 +57,8 @@ val compress(val input) {
 
   ZL_CCtx_free(cctx);
 
-  return val(typed_memory_view(compressedSize, compressed.data()));
+  return val::global("Uint8Array")
+      .new_(typed_memory_view(compressedSize, compressed.data()));
 }
 
 // Basic decompression wrapper
@@ -79,7 +80,8 @@ val decompress(val input) {
     throw std::runtime_error("Decompression failed");
   }
 
-  return val(typed_memory_view(dSize, decompressed.data()));
+  return val::global("Uint8Array")
+      .new_(typed_memory_view(dSize, decompressed.data()));
 }
 
 EMSCRIPTEN_BINDINGS(openzl_wasm) {

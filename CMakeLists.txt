@@ -20,11 +20,11 @@ target_include_directories(openzl-wasm PRIVATE
 )
 
 # 5. Link Libraries
-# OpenZL libraries (adjust based on actual lib names in vendor/OpenZL)
 target_link_libraries(openzl-wasm PRIVATE openzl)
+target_compile_options(openzl-wasm PRIVATE -Oz)
 
 # 6. Emscripten specific settings
 set_target_properties(openzl-wasm PROPERTIES
     SUFFIX ".js"
-    LINK_FLAGS "--bind -s WASM=1 -s EXPORTED_RUNTIME_METHODS=['ccall','cwrap'] -s MODULARIZE=1 -s EXPORT_ES6=1"
+    LINK_FLAGS "--bind -Oz -flto -s WASM=1 -s MODULARIZE=1 -s EXPORT_ES6=1 -s FILESYSTEM=0 -s EXIT_RUNTIME=0 -s ALLOW_MEMORY_GROWTH=1"
 )
