@@ -1,0 +1,36 @@
+{
+  "name": "@kwonlabs/openzl-wasm",
+  "version": "0.1.0",
+  "description": "WebAssembly port of Meta's OpenZL (Structured Data Compression Framework)",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "bun run build:wasm && bun run build:ts",
+    "build:wasm": "bash scripts/build_wasm.sh",
+    "build:ts": "bun build ./src/index.ts --outdir ./dist --target browser --minify",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "prettier --check .",
+    "format": "prettier --write ."
+  },
+  "keywords": [
+    "openzl",
+    "compression",
+    "wasm",
+    "webassembly",
+    "structured-data"
+  ],
+  "author": "KwonMinchul Computer Labs, LLC.",
+  "license": "MIT",
+  "homepage": "https://github.com/facebook/OpenZL",
+  "devDependencies": {
+    "@types/bun": "latest",
+    "prettier": "latest",
+    "typescript": "latest",
+    "vitest": "latest"
+  }
+}
