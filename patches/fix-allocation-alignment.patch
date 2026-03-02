@@ -1,0 +1,21 @@
+diff --git a/src/openzl/common/allocation.c b/src/openzl/common/allocation.c
+--- a/src/openzl/common/allocation.c
++++ b/src/openzl/common/allocation.c
+@@ -134,10 +134,13 @@
+  * ==============================================================
+  */
+ 
+-typedef struct {
+-    size_t index;
+-    size_t size;
+-} HeapMeta;
++typedef union {
++    struct {
++        size_t index;
++        size_t size;
++    }; // Anonymous struct (C11)
++    char _padding[16];
++} HeapMeta;
+ 
+ DECLARE_VECTOR_POINTERS_TYPE(HeapMeta)
+ 

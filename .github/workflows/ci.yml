@@ -2,21 +2,21 @@ name: CI
 
 on:
   push:
-    branches: [main, rename-wasm-output]
+    branches: [main]
   pull_request:
-    branches: [main, rename-wasm-output]
+    branches: [main]
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v4
         with:
           submodules: recursive
 
       - name: Setup Bun
-        uses: oven-sh/setup-bun@v2
+        uses: oven-sh/setup-bun@v1
         with:
           bun-version: latest
 
@@ -28,6 +28,9 @@ jobs:
 
       - name: Build
         run: bun run build
+
+      - name: Verify Build Artifacts
+        run: ls -R dist/
 
       - name: Test
         run: bun run test:coverage

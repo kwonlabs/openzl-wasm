@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 # scripts/build_wasm.sh
 # This script compiles the C++ OpenZL source using Emscripten (emcc).
@@ -14,7 +15,12 @@ BINDINGS_SRC="src/bindings.cpp"
 mkdir -p $BUILD_DIR
 mkdir -p $DIST_DIR
 
-# 3. Build with Docker
+# 3. Apply patches to submodule
+echo "Applying patches to OpenZL submodule..."
+git -C $SRC_VENDOR reset --hard 7e2cd2f
+git -C $SRC_VENDOR apply ../../patches/fix-allocation-alignment.patch
+
+# 4. Build with Docker
 echo "Starting OpenZL WASM Build via Docker..."
 
 docker run --rm \
@@ -27,5 +33,15 @@ echo "WASM Build complete. Checking output..."
 cp $BUILD_DIR/openzl.js $DIST_DIR/
 cp $BUILD_DIR/openzl.wasm $DIST_DIR/
 
-ls -lh $DIST_DIR/openzl.js || echo "JS output not found"
-ls -lh $DIST_DIR/openzl.wasm || echo "WASM output not found"
+if [ ! -f "$DIST_DIR/openzl.js" ]; then
+    echo "❌ Error: openzl.js was not generated"
+    exit 1
+fi
+
+if [ ! -f "$DIST_DIR/openzl.wasm" ]; then
+    echo "❌ Error: openzl.wasm was not generated"
+    exit 1
+fi
+
+ls -lh $DIST_DIR/openzl.js
+ls -lh $DIST_DIR/openzl.wasm
