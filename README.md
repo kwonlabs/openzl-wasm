@@ -29,10 +29,21 @@ bun add @kwonlabs/openzl-wasm
 ```typescript
 import { OpenZL } from '@kwonlabs/openzl-wasm';
 
-// Initialize the WASM module
-const ozl = await OpenZL.load();
+// Check if ready (non-blocking)
+if (OpenZL.isReady()) {
+    console.log("OpenZL is ready!");
+}
 
-// Data to compress
+// Or wait for it to be ready
+await OpenZL.load();
+```
+
+### Sync Usage (Blocking)
+
+Sync calls require the module to be initialized. Use `await OpenZL.load()` before calling these if you aren't sure it's ready.
+
+```typescript
+// Data to compress (define once for all examples)
 const data = new TextEncoder().encode(JSON.stringify({ 
   id: 1, 
   name: "OpenZL", 
@@ -40,12 +51,24 @@ const data = new TextEncoder().encode(JSON.stringify({
 }));
 
 // Compress
-const compressed = ozl.compress(data);
+const compressed = OpenZL.compress(data);
 console.log(`Original: ${data.length} bytes, Compressed: ${compressed.length} bytes`);
 
 // Decompress
-const decompressed = ozl.decompress(compressed);
+const decompressed = OpenZL.decompress(compressed);
 const originalJson = new TextDecoder().decode(decompressed);
+```
+
+### Async Usage (Non-blocking & Auto-waiting)
+
+Async versions will **automatically wait** for the module to load if it hasn't finished yet. You can call these immediately after import.
+
+```typescript
+// Compress Asynchronously (Auto-waits if loading)
+const compressed = await OpenZL.compressAsync(data);
+
+// Decompress Asynchronously
+const decompressed = await OpenZL.decompressAsync(compressed);
 ```
 
 

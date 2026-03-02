@@ -1,6 +1,6 @@
 {
   "name": "@kwonlabs/openzl-wasm",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "WebAssembly port of Meta's OpenZL (Structured Data Compression Framework)",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -11,9 +11,10 @@
   "scripts": {
     "build": "bun run build:wasm && bun run build:ts && bun run prepare:dist",
     "build:wasm": "bash scripts/build_wasm.sh",
-    "build:ts": "bun build ./src/index.ts --outfile ./dist/index.js --target browser --minify && bun build ./src/index.ts --outfile ./dist/index.mjs --target browser --minify && tsc --emitDeclarationOnly",
+    "build:ts": "bun run scripts/build_ts.ts",
     "prepare:dist": "bun run scripts/prepare_dist.ts",
     "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
     "test:watch": "vitest",
     "lint": "prettier --check .",
     "format": "prettier --write ."
@@ -37,6 +38,7 @@
   },
   "devDependencies": {
     "@types/bun": "latest",
+    "@vitest/coverage-v8": "^4.0.18",
     "prettier": "latest",
     "typescript": "latest",
     "vitest": "latest"

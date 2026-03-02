@@ -24,8 +24,8 @@ docker run --rm \
     sh -c "emcmake cmake -B $BUILD_DIR -DCMAKE_BUILD_TYPE=Release -DOPENZL_ALLOW_INTROSPECTION=OFF -DOPENZL_BUILD_CLI=OFF -DOPENZL_BUILD_EXAMPLES=OFF -DOPENZL_BUILD_TESTS=OFF -DOPENZL_BUILD_BENCHMARKS=OFF -DOPENZL_BUILD_TOOLS=OFF && cmake --build $BUILD_DIR"
 
 echo "WASM Build complete. Checking output..."
-cp $BUILD_DIR/openzl-wasm.js $DIST_DIR/
-cp $BUILD_DIR/openzl-wasm.wasm $DIST_DIR/
+cp $BUILD_DIR/openzl.js $DIST_DIR/
+cp $BUILD_DIR/openzl.wasm $DIST_DIR/
 
-ls -lh $DIST_DIR/openzl-wasm.js || echo "JS output not found"
-ls -lh $DIST_DIR/openzl-wasm.wasm || echo "WASM output not found"
+ls -lh $DIST_DIR/openzl.js || echo "JS output not found"
+ls -lh $DIST_DIR/openzl.wasm || echo "WASM output not found"

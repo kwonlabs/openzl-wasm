@@ -25,6 +25,7 @@ target_compile_options(openzl-wasm PRIVATE -Oz)
 
 # 6. Emscripten specific settings
 set_target_properties(openzl-wasm PROPERTIES
+    OUTPUT_NAME "openzl"
     SUFFIX ".js"
     LINK_FLAGS "--bind -Oz -flto -s WASM=1 -s MODULARIZE=1 -s EXPORT_ES6=1 -s FILESYSTEM=0 -s EXIT_RUNTIME=0 -s ALLOW_MEMORY_GROWTH=1"
 )
