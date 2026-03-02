@@ -9,9 +9,10 @@
     "dist"
   ],
   "scripts": {
-    "build": "bun run build:wasm && bun run build:ts",
+    "build": "bun run build:wasm && bun run build:ts && bun run prepare:dist",
     "build:wasm": "bash scripts/build_wasm.sh",
-    "build:ts": "bun build ./src/index.ts --outdir ./dist --target browser --minify",
+    "build:ts": "bun build ./src/index.ts --outfile ./dist/index.js --target browser --minify && bun build ./src/index.ts --outfile ./dist/index.mjs --target browser --minify && tsc --emitDeclarationOnly",
+    "prepare:dist": "bun run scripts/prepare_dist.ts",
     "test": "vitest run",
     "test:watch": "vitest",
     "lint": "prettier --check .",
@@ -26,7 +27,14 @@
   ],
   "author": "KwonMinchul Computer Labs, LLC.",
   "license": "MIT",
-  "homepage": "https://github.com/facebook/OpenZL",
+  "homepage": "https://github.com/kwonlabs/openzl-wasm",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kwonlabs/openzl-wasm.git"
+  },
+  "bugs": {
+    "url": "https://github.com/kwonlabs/openzl-wasm/issues"
+  },
   "devDependencies": {
     "@types/bun": "latest",
     "prettier": "latest",

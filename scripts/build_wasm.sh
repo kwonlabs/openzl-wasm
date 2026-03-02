@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# scripts/build_wasm.sh
+# This script compiles the C++ OpenZL source using Emscripten (emcc).
+
+# 1. Configuration
+EMSCRIPTEN_DOCKER_IMAGE="emscripten/emsdk:latest"
+BUILD_DIR="build-wasm"
+DIST_DIR="dist"
+SRC_VENDOR="vendor/OpenZL"
+BINDINGS_SRC="src/bindings.cpp"
+
+# 2. Preparation
+mkdir -p $BUILD_DIR
+mkdir -p $DIST_DIR
+
+# 3. Build with Docker
+echo "Starting OpenZL WASM Build via Docker..."
+
+docker run --rm \
+    -v $(pwd):/src \
+    -u $(id -u):$(id -g) \
+    $EMSCRIPTEN_DOCKER_IMAGE \
+    sh -c "emcmake cmake -B $BUILD_DIR -DCMAKE_BUILD_TYPE=Release && cmake --build $BUILD_DIR"
+
+echo "WASM Build complete. Checking output..."
+cp $BUILD_DIR/openzl-wasm.js $DIST_DIR/
+cp $BUILD_DIR/openzl-wasm.wasm $DIST_DIR/
+
+ls -lh $DIST_DIR/openzl-wasm.js || echo "JS output not found"
+ls -lh $DIST_DIR/openzl-wasm.wasm || echo "WASM output not found"
